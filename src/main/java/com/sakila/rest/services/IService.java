@@ -1,4 +1,4 @@
-package com.sakila.intro.services;
+package com.sakila.rest.services;
 
 import java.util.List;
 
