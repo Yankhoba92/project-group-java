@@ -17,7 +17,7 @@ public class FilmServiceImpl implements FilmService {
 
     @Override
     public Film create(Film film) {
-        return repository.save(film);
+        return repository.save(film);  // Cela renvoie l'objet film complet avec l'ID généré après la sauvegarde
     }
 
     @Override
