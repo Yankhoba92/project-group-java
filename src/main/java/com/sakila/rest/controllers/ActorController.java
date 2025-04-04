@@ -28,4 +28,5 @@ public class ActorController {
     public List<Actor> searchActors(@RequestParam String name) {
         return actorService.searchActorsByName(name);
     }
+
 }
