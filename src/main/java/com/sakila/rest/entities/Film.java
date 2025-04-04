@@ -1,8 +1,11 @@
 package com.sakila.rest.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "film")
@@ -49,28 +52,17 @@ public class Film {
     @Column(name = "last_update")
     private Timestamp lastUpdate;
 
-    public Film() {
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "film_actor",
+            joinColumns = @JoinColumn(name = "film_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
+    @JsonIgnoreProperties("films") // Évite les boucles infinies avec la liste dans Actor
+    private List<Actor> actors;
 
-    public Film(Integer id, String title, String description, Integer releaseYear, Integer languageId,
-                Integer originalLanguageId, Integer rentalDuration, BigDecimal rentalRate, Integer length,
-                BigDecimal replacementCost, String rating, String specialFeatures, Timestamp lastUpdate) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.releaseYear = releaseYear;
-        this.languageId = languageId;
-        this.originalLanguageId = originalLanguageId;
-        this.rentalDuration = rentalDuration;
-        this.rentalRate = rentalRate;
-        this.length = length;
-        this.replacementCost = replacementCost;
-        this.rating = rating;
-        this.specialFeatures = specialFeatures;
-        this.lastUpdate = lastUpdate;
-    }
+    public Film() {}
 
-    // Getters et Setters
     public Integer getId() {
         return id;
     }
@@ -79,7 +71,109 @@ public class Film {
         this.id = id;
     }
 
-    // Ajout des autres getters et setters pour les autres propriétés...
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(Integer releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public Integer getLanguageId() {
+        return languageId;
+    }
+
+    public void setLanguageId(Integer languageId) {
+        this.languageId = languageId;
+    }
+
+    public Integer getOriginalLanguageId() {
+        return originalLanguageId;
+    }
+
+    public void setOriginalLanguageId(Integer originalLanguageId) {
+        this.originalLanguageId = originalLanguageId;
+    }
+
+    public Integer getRentalDuration() {
+        return rentalDuration;
+    }
+
+    public void setRentalDuration(Integer rentalDuration) {
+        this.rentalDuration = rentalDuration;
+    }
+
+    public BigDecimal getRentalRate() {
+        return rentalRate;
+    }
+
+    public void setRentalRate(BigDecimal rentalRate) {
+        this.rentalRate = rentalRate;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public BigDecimal getReplacementCost() {
+        return replacementCost;
+    }
+
+    public void setReplacementCost(BigDecimal replacementCost) {
+        this.replacementCost = replacementCost;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getSpecialFeatures() {
+        return specialFeatures;
+    }
+
+    public void setSpecialFeatures(String specialFeatures) {
+        this.specialFeatures = specialFeatures;
+    }
+
+    public Timestamp getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(Timestamp lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public List<Actor> getActors() {
+        return actors;
+    }
+
+    public void setActors(List<Actor> actors) {
+        this.actors = actors;
+    }
 
     @Override
     public String toString() {
